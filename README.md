@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QR Code Generator
+
+A Next.js application that generates QR codes from multiple links and formats them for printing with 9 QR codes per page.
+
+## Features
+
+- **Batch QR Code Generation**: Input multiple links (one per line) and generate QR codes for all of them
+- **Numbered QR Codes**: Each QR code is automatically numbered for easy identification
+- **Print-Optimized Layout**: Automatically formats QR codes for printing with 9 codes per page
+- **URL Validation**: Automatically validates and normalizes URLs (adds https:// if missing)
+- **Responsive Design**: Works on desktop and mobile devices
+- **Print Preview**: See how your QR codes will look before printing
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd qr-code-generator
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## How to Use
+
+1. **Enter Links**: In the text area, enter your links one per line. You can enter URLs with or without the `https://` prefix.
+
+   Example:
+   ```
+   https://google.com
+   github.com
+   stackoverflow.com
+   https://www.example.com
+   ```
+
+2. **Generate QR Codes**: Click the "Generate QR Codes" button to create QR codes for all your links.
+
+3. **Preview**: Review the generated QR codes in the preview section. Each QR code will be numbered and show the URL below it.
+
+4. **Print**: Click the "Print QR Codes" button to open the print dialog. The application will automatically format the QR codes in a 3x3 grid (9 per page).
+
+## Print Layout
+
+- **9 QR codes per page** arranged in a 3x3 grid
+- **A4 paper size** with appropriate margins
+- **Each QR code includes**:
+  - Sequential number (#1, #2, #3, etc.)
+  - The QR code itself (120x120px)
+  - The full URL below the code
+- **Page breaks** automatically added when you have more than 9 QR codes
+
+## URL Handling
+
+The application automatically:
+- Validates URLs for correctness
+- Adds `https://` prefix to URLs that don't have a protocol
+- Shows error indicators for invalid URLs
+- Breaks long URLs appropriately in the print layout
+
+## Technologies Used
+
+- **Next.js 15** - React framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **react-qr-code** - QR code generation
+- **Print CSS** - Custom print layouts
+
+## Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License - feel free to use this project for personal or commercial purposes.
