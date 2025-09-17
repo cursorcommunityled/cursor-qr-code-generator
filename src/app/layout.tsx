@@ -25,6 +25,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cursor-credits-qr.vercel.app'),
   title: "Cursor Credits QR Code Generator - Batch Print Referral QR Codes",
   description: "Generate multiple QR codes from Cursor referral links and print them in a 9-per-page format for easy distribution of Cursor credits",
   keywords: ["QR code", "Cursor", "referral", "generator", "batch print", "CSV upload"],

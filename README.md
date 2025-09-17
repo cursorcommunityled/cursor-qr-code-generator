@@ -1,100 +1,51 @@
-# QR Code Generator
+# Cursor Credits QR Code Generator
 
-A Next.js application that generates QR codes from multiple links and formats them for printing with 9 QR codes per page.
+## Why This Exists
 
-## Features
+I needed to print QR codes for Cursor referral links to hand out at an event. Doing this manually would have been a hassle - generating each QR code individually, formatting them for printing, making sure they're properly sized and numbered.
 
-- **Batch QR Code Generation**: Input multiple links (one per line) and generate QR codes for all of them
-- **Numbered QR Codes**: Each QR code is automatically numbered for easy identification
-- **Print-Optimized Layout**: Automatically formats QR codes for printing with 9 codes per page
-- **URL Validation**: Automatically validates and normalizes URLs (adds https:// if missing)
-- **Responsive Design**: Works on desktop and mobile devices
-- **Print Preview**: See how your QR codes will look before printing
+Couldn't find a simple tool that did exactly what I needed, so I built this. It's a basic app, but it works well and maybe someone else will find it useful.
 
-## Getting Started
+Upload a CSV file with your links (or paste them manually) and get a clean, printable PDF with 9 QR codes per page.
 
-### Prerequisites
+## What It Does
 
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd qr-code-generator
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Run the development server:
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+- Takes your Cursor referral links (or any links really)
+- Generates QR codes for all of them
+- Formats them in a nice 3×3 grid for printing
+- Numbers everything so you can track which codes you've handed out
+- Works with CSV upload or manual entry
 
 ## How to Use
 
-1. **Enter Links**: In the text area, enter your links one per line. You can enter URLs with or without the `https://` prefix.
+1. Choose to upload a CSV file or enter links manually
+2. For CSV: Upload a file with one URL per row
+3. For manual: Enter URLs one per line in the text box
+4. Click generate to create QR codes
+5. Print the results - they'll be formatted 9 per page
 
-   Example:
-   ```
-   https://google.com
-   github.com
-   stackoverflow.com
-   https://www.example.com
-   ```
-
-2. **Generate QR Codes**: Click the "Generate QR Codes" button to create QR codes for all your links.
-
-3. **Preview**: Review the generated QR codes in the preview section. Each QR code will be numbered and show the URL below it.
-
-4. **Print**: Click the "Print QR Codes" button to open the print dialog. The application will automatically format the QR codes in a 3x3 grid (9 per page).
-
-## Print Layout
-
-- **9 QR codes per page** arranged in a 3x3 grid
-- **A4 paper size** with appropriate margins
-- **Each QR code includes**:
-  - Sequential number (#1, #2, #3, etc.)
-  - The QR code itself (120x120px)
-  - The full URL below the code
-- **Page breaks** automatically added when you have more than 9 QR codes
-
-## URL Handling
-
-The application automatically:
-- Validates URLs for correctness
-- Adds `https://` prefix to URLs that don't have a protocol
-- Shows error indicators for invalid URLs
-- Breaks long URLs appropriately in the print layout
-
-## Technologies Used
-
-- **Next.js 15** - React framework
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **react-qr-code** - QR code generation
-- **Print CSS** - Custom print layouts
-
-## Building for Production
+## Running Locally
 
 ```bash
-npm run build
-npm start
-```
-
-## Development
-
-```bash
+git clone https://github.com/yayaq1/qr-code-generator.git
+cd qr-code-generator
+npm install
 npm run dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Built With
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- react-qr-code
+
+## Contributing
+
+Feel free to contribute! Open an issue or submit a pull request if you have ideas for improvements.
+
 ## License
 
-MIT License - feel free to use this project for personal or commercial purposes.
+MIT

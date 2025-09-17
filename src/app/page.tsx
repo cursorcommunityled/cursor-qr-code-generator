@@ -137,8 +137,7 @@ export default function QRCodeGenerator() {
   // Options View - Choose between Upload or Manual Entry
   const renderOptionsView = () => (
     <motion.div 
-      className="min-h-screen flex items-center justify-center" 
-      style={{ background: 'var(--background)' }}
+      className="flex-1 flex items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -243,9 +242,14 @@ export default function QRCodeGenerator() {
             animate={{ rotate: dragActive ? 3 : 0 }}
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
           >
-            <svg className="mx-auto h-12 w-12" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+                  <svg className="mx-auto h-12 w-12" fill="currentColor" viewBox="0 0 24 24">
+                    {/* Document outline */}
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" opacity="0.8"/>
+                    {/* CSV rows/data lines */}
+                    <path d="M8,11H16V12H8V11M8,13H16V14H8V13M8,15H14V16H8V15M8,17H12V18H8V17Z" />
+                    {/* File type indicator */}
+                    <rect x="7" y="6" width="10" height="2" rx="1" fill="var(--accent-blue)" opacity="0.9"/>
+                  </svg>
           </motion.div>
           <p className="text-white font-medium text-lg mb-2">Drop CSV file here</p>
           <p className="mb-6" style={{ color: 'var(--secondary-text)' }}>or</p>
@@ -314,8 +318,8 @@ export default function QRCodeGenerator() {
 https://cursor.com/referral?code=EXAMPLE1
 https://cursor.com/referral?code=EXAMPLE2
 https://cursor.com/referral?code=EXAMPLE3"
-          value={links}
-          onChange={(e) => setLinks(e.target.value)}
+              value={links}
+              onChange={(e) => setLinks(e.target.value)}
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.2, delay: 0.1 }}
@@ -329,14 +333,14 @@ https://cursor.com/referral?code=EXAMPLE3"
           transition={{ duration: 0.2, delay: 0.15 }}
         >
           <motion.button
-            onClick={generateQRCodes}
+                onClick={generateQRCodes}
             className={`px-8 py-3 rounded-lg font-medium ${links.trim() ? 'btn-primary' : 'btn-secondary opacity-50 cursor-not-allowed'}`}
-            disabled={!links.trim()}
+                disabled={!links.trim()}
             whileHover={links.trim() ? { scale: 1.03, y: -1 } : {}}
             whileTap={links.trim() ? { scale: 0.97 } : {}}
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
-          >
-            Generate QR Codes
+              >
+                Generate QR Codes
           </motion.button>
         </motion.div>
       </div>
@@ -376,7 +380,7 @@ https://cursor.com/referral?code=EXAMPLE3"
           
           <div className="flex gap-3">
             <motion.button
-              onClick={handlePrint}
+                    onClick={handlePrint}
               className="btn-secondary px-6 py-2 rounded-lg text-sm font-medium"
               whileHover={{ scale: 1.03, y: -1 }}
               whileTap={{ scale: 0.97 }}
@@ -385,7 +389,7 @@ https://cursor.com/referral?code=EXAMPLE3"
               Print
             </motion.button>
             <motion.button
-              onClick={clearAll}
+                    onClick={clearAll}
               className="btn-secondary px-6 py-2 rounded-lg text-sm font-medium"
               whileHover={{ scale: 1.03, y: -1 }}
               whileTap={{ scale: 0.97 }}
@@ -425,15 +429,15 @@ https://cursor.com/referral?code=EXAMPLE3"
               whileTap={{ scale: 0.98 }}
             >
               <div className="text-sm font-medium mb-3" style={{ color: 'var(--accent-blue)' }}>
-                #{qr.id}
-              </div>
-              {qr.isValid ? (
+                        #{qr.id}
+                      </div>
+                      {qr.isValid ? (
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 500, damping: 25 }}
                 >
-                  <QRCode 
-                    value={qr.url} 
+                        <QRCode 
+                          value={qr.url} 
                     size={120}
                     className="mx-auto mb-3"
                     bgColor="var(--card-background)"
@@ -443,15 +447,15 @@ https://cursor.com/referral?code=EXAMPLE3"
               ) : (
                 <div className="w-[120px] h-[120px] mx-auto bg-red-900/20 border border-red-500/50 flex items-center justify-center rounded mb-3">
                   <span className="text-red-400 text-xs">Invalid</span>
-                </div>
-              )}
+                        </div>
+                      )}
               <div className="text-xs break-all" style={{ color: 'var(--secondary-text)' }}>
                 {qr.url.length > 40 ? qr.url.substring(0, 40) + '...' : qr.url}
-              </div>
+                      </div>
             </motion.div>
           ))}
         </motion.div>
-      </div>
+                    </div>
     </motion.div>
   );
 
@@ -465,8 +469,49 @@ https://cursor.com/referral?code=EXAMPLE3"
               {renderResultsView()}
             </motion.div>
           ) : currentView === 'options' ? (
-            <motion.div key="options">
+            <motion.div key="options" className="min-h-screen flex flex-col">
               {renderOptionsView()}
+              {/* Footer - only on main page */}
+              <footer className="mt-auto py-6 px-6 border-t border-gray-800">
+                <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <span>Made with</span>
+                    <span className="text-red-400">♥</span>
+                    <span>by</span>
+                    <a 
+                      href="https://github.com/yayaq1" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
+                    >
+                      yayaq1
+                    </a>
+                  </div>
+                  
+                  <div className="flex items-center gap-4">
+                    <a 
+                      href="https://github.com/yayaq1/qr-code-generator" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                      </svg>
+                      <span>Contribute</span>
+                    </a>
+                    
+                    <a 
+                      href="https://cursor.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                    >
+                      Built with Cursor
+                    </a>
+              </div>
+            </div>
+              </footer>
             </motion.div>
           ) : currentView === 'upload' ? (
             <motion.div key="upload">
