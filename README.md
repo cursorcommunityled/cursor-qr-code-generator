@@ -1,5 +1,7 @@
 # Cursor Credits QR Code Generator
 
+Access the app at https://cursor-qr.vercel.app/
+
 ## Why This Exists
 
 I needed to print QR codes for Cursor referral links to hand out at an event. Doing this manually would have been a hassle - generating each QR code individually, formatting them for printing, making sure they're properly sized and numbered.
