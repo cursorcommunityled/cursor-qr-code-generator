@@ -611,7 +611,7 @@ https://cursor.com/referral?code=EXAMPLE3"
                             {qrData.isValid ? (
                           <QRCode 
                                 value={qrData.url} 
-                                size={165}
+                                size={180}
                             className="qr-code"
                                 bgColor="white"
                                 fgColor="black"
@@ -693,6 +693,7 @@ https://cursor.com/referral?code=EXAMPLE3"
             border-right: 1px solid #000;
             border-bottom: 1px solid #000;
             box-sizing: border-box;
+            position: relative;
           }
 
           .print-qr-item:nth-child(3n) {
@@ -705,34 +706,39 @@ https://cursor.com/referral?code=EXAMPLE3"
 
           .qr-number {
             font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 4px;
+            font-size: 14px;
+            margin-bottom: 6px;
             color: #000;
           }
 
           .qr-logo {
-            width: 45px;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 75px;
             height: auto;
-            margin-bottom: 6px;
-            opacity: 0.85;
+            opacity: 0.9;
           }
 
           .qr-code {
-            margin: 4px 0;
+            margin: 4px auto;
+            display: block;
           }
 
           .qr-url {
-            font-size: 7px;
+            font-size: 8px;
             color: #333;
             white-space: nowrap;
-            margin-top: 4px;
-            max-width: 165px;
-            line-height: 1.1;
+            margin-top: 6px;
+            max-width: 180px;
+            line-height: 1.2;
+            text-align: center;
+            width: 100%;
           }
 
           .qr-error {
-            width: 165px;
-            height: 165px;
+            width: 180px;
+            height: 180px;
             background: #fee;
             border: 1px solid #fcc;
             display: flex;
@@ -744,8 +750,8 @@ https://cursor.com/referral?code=EXAMPLE3"
           }
 
           .qr-placeholder {
-            width: 165px;
-            height: 165px;
+            width: 180px;
+            height: 180px;
             background: transparent;
             margin: 4px 0;
           }
