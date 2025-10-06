@@ -167,13 +167,22 @@ export default function QRCodeGenerator() {
           <span style={{ color: 'var(--accent-blue)' }}>Cursor Credits</span> QR Code Generator
         </motion.h1>
         <motion.p 
-          className="text-lg mb-12" 
+          className="text-lg mb-4" 
           style={{ color: 'var(--secondary-text)' }}
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.2, delay: 0.1 }}
         >
           Generate QR codes for your referral links
+        </motion.p>
+        
+        <motion.p 
+          className="text-sm mb-12" 
+          style={{ color: 'var(--secondary-text)', opacity: 0.8 }}
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 0.8 }}
+          transition={{ duration: 0.2, delay: 0.15 }}
+        >
         </motion.p>
         
         <motion.div 
@@ -383,7 +392,7 @@ https://cursor.com/referral?code=EXAMPLE3"
         </motion.button>
         
         <motion.div 
-          className="flex justify-between items-center mb-8"
+          className="flex justify-between items-center mb-4"
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.2, delay: 0.05 }}
@@ -413,6 +422,16 @@ https://cursor.com/referral?code=EXAMPLE3"
             </motion.button>
           </div>
         </motion.div>
+        
+        <motion.p 
+          className="text-xs mb-8 text-center px-4 py-2 rounded-lg"
+          style={{ color: 'var(--secondary-text)', backgroundColor: 'rgba(37, 99, 235, 0.1)', border: '1px solid rgba(37, 99, 235, 0.2)' }}
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.2, delay: 0.1 }}
+        >
+          💡 Numbers are positioned for easy stacking: after printing, cut pages into squares and stack by position for perfect order
+        </motion.p>
         
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
@@ -548,8 +567,12 @@ https://cursor.com/referral?code=EXAMPLE3"
               const qrLookup = new Map(qrCodes.map(qr => [qr.id, qr]));
               
               return (
-              <div key={pageIndex} className="print-page">
-                <div className="print-grid">
+                <div key={pageIndex} className="print-page">
+                  <div className="print-header">
+                    <h3>Cursor Credits QR Codes - Page {pageIndex + 1}</h3>
+                    <p>📋 Instructions: Cut along grid lines → Stack squares by position → Combine stacks left-to-right, top-to-bottom for perfect order</p>
+                  </div>
+                  <div className="print-grid">
                     {Array.from({ length: GRID_ROWS }, (_, rowIndex) =>
                       Array.from({ length: GRID_COLS }, (_, colIndex) => {
                         const cellNumber = numberForCell(
@@ -607,6 +630,9 @@ https://cursor.com/referral?code=EXAMPLE3"
                       })
                     ).flat()}
                       </div>
+                  <div className="print-footer">
+                    <p><strong>Cut & Stack Guide:</strong> 1) Cut into 9 squares 2) Stack same positions together 3) Arrange 9 stacks in 3×3 pattern 4) Combine into one pile</p>
+                  </div>
                 </div>
               );
             })}
@@ -637,13 +663,51 @@ https://cursor.com/referral?code=EXAMPLE3"
             width: 100%;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 15mm 0;
             background: white;
+            box-sizing: border-box;
           }
 
           .print-page:last-child {
             page-break-after: avoid;
+          }
+
+          .print-header {
+            text-align: center;
+            margin-bottom: 10mm;
+            width: 100%;
+            max-width: 190mm;
+          }
+
+          .print-header h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            color: #000;
+          }
+
+          .print-header p {
+            font-size: 11px;
+            margin: 0;
+            color: #333;
+            line-height: 1.3;
+          }
+
+          .print-footer {
+            text-align: center;
+            margin-top: 10mm;
+            width: 100%;
+            max-width: 190mm;
+          }
+
+          .print-footer p {
+            font-size: 10px;
+            margin: 0;
+            color: #666;
+            line-height: 1.2;
           }
 
           .print-grid {
@@ -651,9 +715,8 @@ https://cursor.com/referral?code=EXAMPLE3"
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             width: 100%;
-            height: 90%;
+            flex: 1;
             max-width: 190mm;
-            max-height: 260mm;
             border: 1px solid #000;
             box-sizing: border-box;
           }
