@@ -10,6 +10,20 @@ interface QRCodeData {
   isValid: boolean;
 }
 
+// Grid configuration for cut-and-stack collation
+const GRID_ROWS = 3;
+const GRID_COLS = 3;
+const CELLS_PER_PAGE = GRID_ROWS * GRID_COLS;
+
+// Calculate the number for a specific cell position using cut-and-stack collation
+function numberForCell(p: number, r: number, c: number, R: number, C: number, N: number): number | null {
+  const S = R * C;
+  const P = Math.ceil(N / S);
+  const s = r * C + c;
+  const n = s * P + (p + 1);
+  return n <= N ? n : null;
+}
+
 export default function QRCodeGenerator() {
   const [links, setLinks] = useState<string>('');
   const [qrCodes, setQrCodes] = useState<QRCodeData[]>([]);
@@ -529,33 +543,73 @@ https://cursor.com/referral?code=EXAMPLE3"
       <div ref={printRef} className="hidden print:block">
         {qrCodes.length > 0 && (
           <div className="print-container">
-            {Array.from({ length: Math.ceil(qrCodes.length / 9) }, (_, pageIndex) => (
+            {Array.from({ length: Math.ceil(qrCodes.length / CELLS_PER_PAGE) }, (_, pageIndex) => {
+              // Create a lookup map for QR data by original ID
+              const qrLookup = new Map(qrCodes.map(qr => [qr.id, qr]));
+              
+              return (
               <div key={pageIndex} className="print-page">
                 <div className="print-grid">
-                  {qrCodes
-                    .slice(pageIndex * 9, (pageIndex + 1) * 9)
-                    .map((qr) => (
-                      <div key={qr.id} className="print-qr-item">
-                        <div className="qr-number">#{qr.id}</div>
-                        {qr.isValid ? (
+                    {Array.from({ length: GRID_ROWS }, (_, rowIndex) =>
+                      Array.from({ length: GRID_COLS }, (_, colIndex) => {
+                        const cellNumber = numberForCell(
+                          pageIndex, 
+                          rowIndex, 
+                          colIndex, 
+                          GRID_ROWS, 
+                          GRID_COLS, 
+                          qrCodes.length
+                        );
+                        
+                        if (cellNumber === null) {
+                          // Empty cell - maintain grid structure
+                          return (
+                            <div key={`${rowIndex}-${colIndex}`} className="print-qr-item">
+                              <div className="qr-number"></div>
+                              <div className="qr-placeholder"></div>
+                              <div className="qr-url"></div>
+                            </div>
+                          );
+                        }
+                        
+                        // Find the QR data for this cell number
+                        const qrData = qrLookup.get(cellNumber);
+                        if (!qrData) {
+                          // Shouldn't happen, but handle gracefully
+                          return (
+                            <div key={`${rowIndex}-${colIndex}`} className="print-qr-item">
+                              <div className="qr-number">#{cellNumber}</div>
+                              <div className="qr-error">No data</div>
+                              <div className="qr-url"></div>
+                            </div>
+                          );
+                        }
+                        
+                        return (
+                          <div key={`${rowIndex}-${colIndex}`} className="print-qr-item">
+                            <div className="qr-number">#{cellNumber}</div>
+                            {qrData.isValid ? (
                           <QRCode 
-                            value={qr.url} 
-                            size={140}
+                                value={qrData.url} 
+                                size={140}
                             className="qr-code"
-                            bgColor="white"
-                            fgColor="black"
+                                bgColor="white"
+                                fgColor="black"
                           />
                         ) : (
                           <div className="qr-error">
                             Invalid URL
                           </div>
                         )}
-                        <div className="qr-url">{qr.url}</div>
+                            <div className="qr-url">{qrData.url}</div>
+                          </div>
+                        );
+                      })
+                    ).flat()}
                       </div>
-                    ))}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
@@ -655,6 +709,13 @@ https://cursor.com/referral?code=EXAMPLE3"
             justify-content: center;
             font-size: 10px;
             color: #c33;
+            margin: 4px 0;
+          }
+
+          .qr-placeholder {
+            width: 140px;
+            height: 140px;
+            background: transparent;
             margin: 4px 0;
           }
         }
