@@ -568,10 +568,6 @@ https://cursor.com/referral?code=EXAMPLE3"
               
               return (
                 <div key={pageIndex} className="print-page">
-                  <div className="print-header">
-                    <h3>Cursor Credits QR Codes - Page {pageIndex + 1}</h3>
-                    <p>📋 Instructions: Cut along grid lines → Stack squares by position → Combine stacks left-to-right, top-to-bottom for perfect order</p>
-                  </div>
                   <div className="print-grid">
                     {Array.from({ length: GRID_ROWS }, (_, rowIndex) =>
                       Array.from({ length: GRID_COLS }, (_, colIndex) => {
@@ -611,10 +607,11 @@ https://cursor.com/referral?code=EXAMPLE3"
                         return (
                           <div key={`${rowIndex}-${colIndex}`} className="print-qr-item">
                             <div className="qr-number">#{cellNumber}</div>
+                            <img src="/LOCKUP_HORIZONTAL_2D_LIGHT.svg" alt="Cursor" className="qr-logo" />
                             {qrData.isValid ? (
                           <QRCode 
                                 value={qrData.url} 
-                                size={140}
+                                size={165}
                             className="qr-code"
                                 bgColor="white"
                                 fgColor="black"
@@ -630,9 +627,6 @@ https://cursor.com/referral?code=EXAMPLE3"
                       })
                     ).flat()}
                       </div>
-                  <div className="print-footer">
-                    <p><strong>Cut & Stack Guide:</strong> 1) Cut into 9 squares 2) Stack same positions together 3) Arrange 9 stacks in 3×3 pattern 4) Combine into one pile</p>
-                  </div>
                 </div>
               );
             })}
@@ -649,7 +643,7 @@ https://cursor.com/referral?code=EXAMPLE3"
 
           @page {
             size: A4;
-            margin: 10mm;
+            margin: 0mm;
           }
 
           .print-container {
@@ -665,49 +659,15 @@ https://cursor.com/referral?code=EXAMPLE3"
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 15mm 0;
+            justify-content: center;
+            padding: 0;
             background: white;
             box-sizing: border-box;
+            position: relative;
           }
 
           .print-page:last-child {
             page-break-after: avoid;
-          }
-
-          .print-header {
-            text-align: center;
-            margin-bottom: 10mm;
-            width: 100%;
-            max-width: 190mm;
-          }
-
-          .print-header h3 {
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0 0 5px 0;
-            color: #000;
-          }
-
-          .print-header p {
-            font-size: 11px;
-            margin: 0;
-            color: #333;
-            line-height: 1.3;
-          }
-
-          .print-footer {
-            text-align: center;
-            margin-top: 10mm;
-            width: 100%;
-            max-width: 190mm;
-          }
-
-          .print-footer p {
-            font-size: 10px;
-            margin: 0;
-            color: #666;
-            line-height: 1.2;
           }
 
           .print-grid {
@@ -715,8 +675,9 @@ https://cursor.com/referral?code=EXAMPLE3"
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             width: 100%;
-            flex: 1;
-            max-width: 190mm;
+            max-width: 210mm;
+            height: 100%;
+            max-height: 297mm;
             border: 1px solid #000;
             box-sizing: border-box;
           }
@@ -749,6 +710,13 @@ https://cursor.com/referral?code=EXAMPLE3"
             color: #000;
           }
 
+          .qr-logo {
+            width: 45px;
+            height: auto;
+            margin-bottom: 6px;
+            opacity: 0.85;
+          }
+
           .qr-code {
             margin: 4px 0;
           }
@@ -756,15 +724,15 @@ https://cursor.com/referral?code=EXAMPLE3"
           .qr-url {
             font-size: 7px;
             color: #333;
-            word-break: break-all;
+            white-space: nowrap;
             margin-top: 4px;
-            max-width: 140px;
+            max-width: 165px;
             line-height: 1.1;
           }
 
           .qr-error {
-            width: 140px;
-            height: 140px;
+            width: 165px;
+            height: 165px;
             background: #fee;
             border: 1px solid #fcc;
             display: flex;
@@ -776,8 +744,8 @@ https://cursor.com/referral?code=EXAMPLE3"
           }
 
           .qr-placeholder {
-            width: 140px;
-            height: 140px;
+            width: 165px;
+            height: 165px;
             background: transparent;
             margin: 4px 0;
           }
