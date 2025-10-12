@@ -26,9 +26,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cursor-credits-qr.vercel.app'),
-  title: "Cursor Credits QR Code Generator - Batch Print Referral QR Codes",
-  description: "Generate multiple QR codes from Cursor referral links and print them in a 9-per-page format for easy distribution of Cursor credits",
-  keywords: ["QR code", "Cursor", "referral", "generator", "batch print", "CSV upload"],
+  title: "Cursor Credits QR Code Generator - Secure Batch Print Referral QR Codes",
+  description: "Securely generate multiple QR codes from Cursor referral links client-side (no data sent to server). Print in 9-per-page format for easy distribution of Cursor credits",
+  keywords: ["QR code", "Cursor", "referral", "generator", "batch print", "CSV upload", "secure", "private", "client-side"],
   authors: [{ name: "Cursor Credits" }],
   creator: "Cursor Credits QR Generator",
   publisher: "Cursor Credits",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   // Open Graph
   openGraph: {
     type: "website",
-    title: "Cursor Credits QR Code Generator",
-    description: "Generate multiple QR codes from Cursor referral links and print them in a 9-per-page format for easy distribution of Cursor credits",
+    title: "Cursor Credits QR Code Generator - Secure & Private",
+    description: "Securely generate multiple QR codes from Cursor referral links. All processing happens client-side in your browser - no data sent to servers. Print in 9-per-page format.",
     url: "https://cursor-credits-qr.vercel.app", // Update with your actual domain
     siteName: "Cursor Credits QR Generator",
     images: [
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
   // Twitter
   twitter: {
     card: "summary_large_image",
-    title: "Cursor Credits QR Code Generator",
-    description: "Generate multiple QR codes from Cursor referral links and print them in a 9-per-page format for easy distribution of Cursor credits",
+    title: "Cursor Credits QR Code Generator - Secure & Private",
+    description: "Securely generate QR codes from Cursor referral links. All processing client-side - no data sent to servers. Privacy-first design.",
     images: ["/og-img.png"],
     creator: "@cursor",
   },

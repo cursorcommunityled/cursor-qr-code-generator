@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# md files folder 
+md_files/
+md files/MIGRATION-GUIDE.md
+md files/SECURITY-SUMMARY.md
+md files/SECURITY.md
