@@ -989,10 +989,13 @@ function QRCodeGeneratorContent() {
             }
 
             .qr-number {
+              position: absolute;
+              top: 8px;
+              left: 8px;
               font-weight: bold;
               font-size: 14px;
-              margin-bottom: 6px;
               color: #000;
+              z-index: 1;
             }
 
             .qr-logo {
@@ -1010,14 +1013,16 @@ function QRCodeGeneratorContent() {
             }
 
             .qr-url {
+              position: absolute;
+              bottom: 8px;
+              left: 0;
+              right: 0;
               font-size: 8px;
               color: #333;
-              white-space: nowrap;
-              margin-top: 6px;
-              max-width: 180px;
               line-height: 1.2;
               text-align: center;
               width: 100%;
+              padding: 0 8px;
             }
 
             .qr-error {
