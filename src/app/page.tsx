@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import QRCode from 'react-qr-code';
+import { QRCode } from 'react-qrcode-logo';
 import { motion, AnimatePresence } from 'framer-motion';
 import Papa from 'papaparse';
 import { ToastContainer, ToastType } from '@/components/Toast';
@@ -746,15 +746,23 @@ function QRCodeGeneratorContent() {
               )}
               {qr.isValid ? (
                 <motion.div
+                  className="flex justify-center items-center mb-3"
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 500, damping: 25 }}
                 >
                   <QRCode 
                     value={qr.url} 
                     size={120}
-                    className="mx-auto mb-3"
                     bgColor="var(--card-background)"
                     fgColor="white"
+                    logoImage="/cropped_circle_image.png"
+                    logoWidth={24}
+                    logoHeight={24}
+                    logoOpacity={1}
+                    logoPadding={1}
+                    logoPaddingStyle="circle"
+                    removeQrCodeBehindLogo={true}
+                    qrStyle="squares"
                   />
                 </motion.div>
               ) : (
@@ -896,9 +904,16 @@ function QRCodeGeneratorContent() {
                                 <QRCode 
                                   value={qrData.url} 
                                   size={180}
-                                  className="qr-code"
                                   bgColor="white"
                                   fgColor="black"
+                                  logoImage="/cropped_circle_image.png"
+                                  logoWidth={40}
+                                  logoHeight={40}
+                                  logoOpacity={1}
+                                  logoPadding={2}
+                                  logoPaddingStyle="circle"
+                                  removeQrCodeBehindLogo={true}
+                                  qrStyle="squares"
                                 />
                               ) : (
                                 <div className="qr-error">
