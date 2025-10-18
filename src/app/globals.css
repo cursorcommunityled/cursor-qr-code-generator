@@ -10,6 +10,7 @@
   --secondary-button-hover: #4b5563;
   --card-background: #111111;
   --border-color: #333333;
+  --qr-card-text-color: #000000;
 }
 
 @theme inline {
@@ -116,6 +117,11 @@ textarea::placeholder, input::placeholder {
 .qr-item:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* QR Code card text styling (ID, URL, etc.) */
+.qr-card-text {
+  color: var(--qr-card-text-color);
 }
 
 /* Upload area animations */

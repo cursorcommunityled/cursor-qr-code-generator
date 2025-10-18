@@ -761,7 +761,7 @@ function QRCodeGeneratorContent() {
               }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="text-sm font-medium mb-3" style={{ color: 'var(--accent-blue)' }}>
+              <div className="text-sm font-medium mb-3 qr-card-text">
                 #{qr.id}
               </div>
               {qr.hasWarning && (
@@ -798,7 +798,7 @@ function QRCodeGeneratorContent() {
                   <span className="text-red-400 text-xs">Invalid URL</span>
                 </div>
               )}
-              <div className="text-xs break-all" style={{ color: 'var(--secondary-text)' }}>
+              <div className="text-xs break-all qr-card-text">
                 {sanitizeUrlForDisplay(qr.url).length > 40 
                   ? sanitizeUrlForDisplay(qr.url).substring(0, 40) + '...' 
                   : sanitizeUrlForDisplay(qr.url)}
@@ -1037,7 +1037,7 @@ function QRCodeGeneratorContent() {
               left: 8px;
               font-weight: bold;
               font-size: 14px;
-              color: #000;
+              color: var(--qr-card-text-color);
               z-index: 1;
             }
 
@@ -1061,7 +1061,7 @@ function QRCodeGeneratorContent() {
               left: 0;
               right: 0;
               font-size: 8px;
-              color: #333;
+              color: var(--qr-card-text-color);
               line-height: 1.2;
               text-align: center;
               width: 100%;
