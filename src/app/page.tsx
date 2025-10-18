@@ -783,12 +783,11 @@ function QRCodeGeneratorContent() {
                     size={120}
                     bgColor="var(--card-background)"
                     fgColor="white"
-                    logoImage="/cropped_circle_image.png"
-                    logoWidth={24}
-                    logoHeight={24}
+                    logoImage="/cursor-logo-bw.png"
+                    logoWidth={32}
                     logoOpacity={1}
-                    logoPadding={1}
-                    logoPaddingStyle="circle"
+                    logoPadding={0}
+                    logoPaddingStyle="square"
                     removeQrCodeBehindLogo={true}
                     qrStyle="squares"
                   />
@@ -929,20 +928,19 @@ function QRCodeGeneratorContent() {
                               <div className="qr-number">#{cellNumber}</div>
                               <img src="/LOCKUP_HORIZONTAL_2D_LIGHT.svg" alt="Cursor" className="qr-logo" />
                               {qrData.isValid ? (
-                                <QRCode 
-                                  value={qrData.url} 
-                                  size={180}
-                                  bgColor="white"
-                                  fgColor="black"
-                                  logoImage="/cropped_circle_image.png"
-                                  logoWidth={40}
-                                  logoHeight={40}
-                                  logoOpacity={1}
-                                  logoPadding={2}
-                                  logoPaddingStyle="circle"
-                                  removeQrCodeBehindLogo={true}
-                                  qrStyle="squares"
-                                />
+                              <QRCode 
+                                value={qrData.url} 
+                                size={180}
+                                bgColor="white"
+                                fgColor="black"
+                                logoImage="/cursor-logo-bw.png"
+                                logoWidth={50}
+                                logoOpacity={1}
+                                logoPadding={0}
+                                logoPaddingStyle="square"
+                                removeQrCodeBehindLogo={true}
+                                qrStyle="squares"
+                              />
                               ) : (
                                 <div className="qr-error">
                                   Invalid URL
