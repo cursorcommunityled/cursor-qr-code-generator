@@ -122,6 +122,7 @@ textarea::placeholder, input::placeholder {
 /* QR Code card text styling (ID, URL, etc.) */
 .qr-card-text {
   color: var(--qr-card-text-color);
+  font-family: var(--font-inter), Inter, sans-serif;
 }
 
 /* Upload area animations */

@@ -1038,6 +1038,7 @@ function QRCodeGeneratorContent() {
               font-weight: bold;
               font-size: 14px;
               color: var(--qr-card-text-color);
+              font-family: var(--font-inter), Inter, sans-serif;
               z-index: 1;
             }
 
@@ -1062,6 +1063,7 @@ function QRCodeGeneratorContent() {
               right: 0;
               font-size: 8px;
               color: var(--qr-card-text-color);
+              font-family: var(--font-inter), Inter, sans-serif;
               line-height: 1.2;
               text-align: center;
               width: 100%;
