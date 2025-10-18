@@ -127,7 +127,7 @@ textarea::placeholder, input::placeholder {
 
 /* QR Code URL text size override */
 .qr-card-url {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 /* Upload area animations */

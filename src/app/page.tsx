@@ -1059,7 +1059,7 @@ function QRCodeGeneratorContent() {
               bottom: 8px;
               left: 0;
               right: 0;
-              font-size: 10px;
+              font-size: 9px;
               color: var(--qr-card-text-color);
               font-family: var(--font-inter), Inter, sans-serif;
               line-height: 1.2;
