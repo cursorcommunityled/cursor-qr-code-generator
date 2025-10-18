@@ -125,6 +125,11 @@ textarea::placeholder, input::placeholder {
   font-family: var(--font-inter), Inter, sans-serif;
 }
 
+/* QR Code URL text size override */
+.qr-card-url {
+  font-size: 15px;
+}
+
 /* Upload area animations */
 .upload-area {
   transition: all 0.2s ease;
