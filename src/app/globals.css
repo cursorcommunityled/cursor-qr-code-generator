@@ -121,13 +121,20 @@ textarea::placeholder, input::placeholder {
 
 /* QR Code card text styling (ID, URL, etc.) */
 .qr-card-text {
-  color: var(--qr-card-text-color);
+  color: var(--accent-blue);
   font-family: var(--font-inter), Inter, sans-serif;
 }
 
 /* QR Code URL text size override */
 .qr-card-url {
   font-size: 14px;
+}
+
+/* Print-specific styles for QR card text */
+@media print {
+  .qr-card-text {
+    color: var(--qr-card-text-color);
+  }
 }
 
 /* Upload area animations */
