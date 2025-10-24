@@ -26,6 +26,9 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const MAX_QR_CODES = 750;
 const ALLOWED_SCHEMES = ['http:', 'https:'];
 
+// Cursor URL constant
+const CURSOR_BASE_URL = 'https://cursor.com/';
+
 // Grid configuration for cut-and-stack collation
 const GRID_ROWS = 3;
 const GRID_COLS = 3;
@@ -288,15 +291,40 @@ function QRCodeGeneratorContent() {
           try {
             const urls: string[] = [];
             
-            // Extract URLs from first column, skip header row
+            // Extract URLs from CSV, skip header row
             for (let i = 0; i < results.data.length; i++) {
               const row = results.data[i] as string[];
               if (i === 0 && row[0]?.toLowerCase().includes('url')) {
                 // Skip header row
                 continue;
               }
-              if (row[0] && row[0].trim()) {
-                urls.push(row[0].trim());
+              
+              // Check if this looks like a split Cursor URL format
+              let foundReferral = false;
+              for (let j = 0; j < row.length; j++) {
+                if (row[j] && row[j].trim() && row[j].toLowerCase().startsWith('referral')) {
+                  // Found the referral column - build the full URL
+                  const referralPath = row[j].trim();
+                  const fullUrl = `${CURSOR_BASE_URL}${referralPath}`;
+                  urls.push(fullUrl);
+                  foundReferral = true;
+                  break;
+                }
+              }
+              
+              // If we didn't find a referral column, check if it's a standard complete URL
+              if (!foundReferral && row[0] && row[0].trim()) {
+                const url = row[0].trim();
+                // Check if it's already a complete URL (starts with http:// or https://)
+                if (url.startsWith('http://') || url.startsWith('https://')) {
+                  urls.push(url);
+                } else if (url.toLowerCase().startsWith('referral')) {
+                  // Just the referral path without base URL
+                  urls.push(`${CURSOR_BASE_URL}${url}`);
+                } else {
+                  // Unknown format, add as-is
+                  urls.push(url);
+                }
               }
             }
 
@@ -364,7 +392,7 @@ function QRCodeGeneratorContent() {
             setIsProcessing(false);
           }
         },
-        error: (error) => {
+        error: (error: Error) => {
           console.error('CSV parsing error:', error);
           showToast(
             `CSV parsing failed: ${error.message}. Please ensure the file is properly formatted.`,
@@ -609,7 +637,7 @@ function QRCodeGeneratorContent() {
             background: 'var(--card-background)', 
             border: '1px solid var(--border-color)'
           }}
-          placeholder={`Enter your Cursor referral links, one per line:\n\nhttps://cursor.com/referral?code=EXAMPLE1\nhttps://cursor.com/referral?code=EXAMPLE2\nhttps://cursor.com/referral?code=EXAMPLE3`}
+          placeholder={`Enter your Cursor referral links, one per line:\n\n${CURSOR_BASE_URL}referral?code=EXAMPLE1\n${CURSOR_BASE_URL}referral?code=EXAMPLE2\n${CURSOR_BASE_URL}referral?code=EXAMPLE3`}
           value={links}
           onChange={(e) => setLinks(e.target.value)}
           initial={{ y: 10, opacity: 0 }}
@@ -733,7 +761,7 @@ function QRCodeGeneratorContent() {
               }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="text-sm font-medium mb-3" style={{ color: 'var(--accent-blue)' }}>
+              <div className="text-sm mb-3 qr-card-text">
                 #{qr.id}
               </div>
               {qr.hasWarning && (
@@ -755,12 +783,11 @@ function QRCodeGeneratorContent() {
                     size={120}
                     bgColor="var(--card-background)"
                     fgColor="white"
-                    logoImage="/cropped_circle_image.png"
-                    logoWidth={24}
-                    logoHeight={24}
+                    logoImage="/cursor-logo-bw.png"
+                    logoWidth={32}
                     logoOpacity={1}
-                    logoPadding={1}
-                    logoPaddingStyle="circle"
+                    logoPadding={0}
+                    logoPaddingStyle="square"
                     removeQrCodeBehindLogo={true}
                     qrStyle="squares"
                   />
@@ -770,7 +797,7 @@ function QRCodeGeneratorContent() {
                   <span className="text-red-400 text-xs">Invalid URL</span>
                 </div>
               )}
-              <div className="text-xs break-all" style={{ color: 'var(--secondary-text)' }}>
+              <div className="break-all qr-card-text qr-card-url">
                 {sanitizeUrlForDisplay(qr.url).length > 40 
                   ? sanitizeUrlForDisplay(qr.url).substring(0, 40) + '...' 
                   : sanitizeUrlForDisplay(qr.url)}
@@ -901,20 +928,19 @@ function QRCodeGeneratorContent() {
                               <div className="qr-number">#{cellNumber}</div>
                               <img src="/LOCKUP_HORIZONTAL_2D_LIGHT.svg" alt="Cursor" className="qr-logo" />
                               {qrData.isValid ? (
-                                <QRCode 
-                                  value={qrData.url} 
-                                  size={180}
-                                  bgColor="white"
-                                  fgColor="black"
-                                  logoImage="/cropped_circle_image.png"
-                                  logoWidth={40}
-                                  logoHeight={40}
-                                  logoOpacity={1}
-                                  logoPadding={2}
-                                  logoPaddingStyle="circle"
-                                  removeQrCodeBehindLogo={true}
-                                  qrStyle="squares"
-                                />
+                              <QRCode 
+                                value={qrData.url} 
+                                size={180}
+                                bgColor="white"
+                                fgColor="black"
+                                logoImage="/cursor-logo-bw.png"
+                                logoWidth={50}
+                                logoOpacity={1}
+                                logoPadding={0}
+                                logoPaddingStyle="square"
+                                removeQrCodeBehindLogo={true}
+                                qrStyle="squares"
+                              />
                               ) : (
                                 <div className="qr-error">
                                   Invalid URL
@@ -1007,9 +1033,10 @@ function QRCodeGeneratorContent() {
               position: absolute;
               top: 8px;
               left: 8px;
-              font-weight: bold;
+              font-weight: normal;
               font-size: 14px;
-              color: #000;
+              color: var(--qr-card-text-color);
+              font-family: var(--font-inter), Inter, sans-serif;
               z-index: 1;
             }
 
@@ -1032,8 +1059,9 @@ function QRCodeGeneratorContent() {
               bottom: 8px;
               left: 0;
               right: 0;
-              font-size: 8px;
-              color: #333;
+              font-size: 9px;
+              color: var(--qr-card-text-color);
+              font-family: var(--font-inter), Inter, sans-serif;
               line-height: 1.2;
               text-align: center;
               width: 100%;
